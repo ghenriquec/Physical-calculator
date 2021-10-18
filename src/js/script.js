@@ -38,7 +38,7 @@ const physical = () => {
   if(name !== '' && distance !== '' && weight !== '' ){
     result.textContent = `Olá ${name}! Você percorreu ${distance} km em ${hour}h, ${arrayTime[1]} min e ${arrayTime[2]}s. Isso quer dizer que a sua velocidade média foi de ${velocityMedium} km/h, o que o corresponde a um pace de ${pace}min/km. Com ${weight}kg, você gastou cerca de ${calory} cal”`;
   }else{
-    result.textContent = 'Para ter os resultados, preencha todos os campos.';
+    alert('Para ter os resultados, preencha todos os campos.');
   }
 }
 
