@@ -1,67 +1,53 @@
 const calculate = document.getElementById('calculate');
 
-let inputs = document.querySelectorAll(".input");
-
-/* Mask for input */
 $(document).ready(function () {
-  $('.weight').mask("#00", {
-    reverse: true
-  });
+    $('.weightAthlete').mask("#00", {
+      reverse: true
+    });
+  })
+  
+  $(document).ready(function () {
+    $('#timeTravelled').mask('00:00:00');
 })
 
-$(document).ready(function () {
-  $('.height').mask("#0.00", {
-    reverse: true
+
+const physical = () => {
+  const name = document.getElementById('nameAthlete').value
+  const weight = document.getElementById('weightAthlete').value
+  const distance = document.getElementById('distanceTravelled').value
+  const time = document.getElementById('timeTravelled').value
+  
+  const result = document.getElementById('result')
+  const caloryValue = 0.0175;
+
+  var arrayTime = time.split(":").map(function(item) {
+    return parseInt(item, 10);
   });
-})
 
-const clearText = () => {
-  document.getElementById('namePacient').value = "";
-  document.getElementById('weightPacient').value = "";
-  document.getElementById('heightPacient').value = "";
-  document.getElementById('result').innerHTML = "";
-}
+  const hour = arrayTime[0]
+  const minute = arrayTime[1]/60
+  const second = arrayTime[2]/3600
+  
+  const totalHour = hour + minute + second;
+  const hourToMinutes = totalHour * 60;
 
-const focusFunx = () => {
-  let parent = this.parentNode.parentNode;
-  parent.classList.add("focus");
-};
+  const pace = (hourToMinutes/distance).toFixed(2)
+  const velocityMedium = (distance/totalHour).toFixed(2);
+  const calory = ((velocityMedium * weight * caloryValue) * hourToMinutes).toFixed(0)
 
-const calculateIMC = () => {
-  const namePacient = document.getElementById('namePacient');
-  const weightPacient = document.getElementById('weightPacient');
-  const heightPacient = document.getElementById('heightPacient');
-  const result = document.getElementById('result');
-
-  if (namePacient.value !== '' && weightPacient.value !== '' && heightPacient.value !== '') {
-    const resultIMC = (parseFloat(weightPacient.value) / parseFloat(heightPacient.value ** 2)).toFixed(2)
-    const weightMaximum = (18.5 * (heightPacient.value ** 2)).toFixed(1);
-    const weightMinimum = (25 * (heightPacient.value ** 2)).toFixed(1);
-
-    let messageReturn = '';
-
-    if (resultIMC < 18.5) {
-      messageReturn = 'abaixo do peso.';
-    } else if (resultIMC < 25) {
-      messageReturn = 'com o peso ideal';
-    } else if (resultIMC < 30) {
-      messageReturn = 'acima do peso.';
-    } else if (resultIMC < 35) {
-      messageReturn = 'com obesidade de grau I.';
-    } else if (resultIMC < 40) {
-      messageReturn = 'com obesidade de grau II.';
-    } else {
-      messageReturn = 'com obesidade de grau III.';
-    }
-    result.textContent = `${namePacient.value} seu imc é de ${resultIMC} e você está ${messageReturn}. Procure manter seu peso entre ${weightMinimum} Kg & ${weightMaximum} Kg`
-  } else {
-    alert('Para calcular o seu IMC , preencha todos os campos.');
+  if(name !== '' && distance !== '' && weight !== '' ){
+    result.textContent = `Olá ${name}! Você percorreu ${distance} km em ${hour}h, ${arrayTime[1]} min e ${arrayTime[2]}s. Isso quer dizer que a sua velocidade média foi de ${velocityMedium} km/h, o que o corresponde a um pace de ${pace}min/km. Com ${weight}kg, você gastou cerca de ${calory} cal”`;
+  }else{
+    result.textContent = 'Para ter os resultados, preencha todos os campos.';
   }
 }
 
-calculate.addEventListener("click", calculateIMC)
+calculate.addEventListener('click', physical)
 
-inputs.forEach((input) => {
-  input.addEventListener("focus", focusFunx);
-});
-
+const clearText = () => {
+  document.getElementById('nameAthlete').value = "";
+  document.getElementById('weightAthlete').value = "";
+  document.getElementById('distanceTravelled').value = "";
+  document.getElementById('timeTravelled').innerHTML = "";
+  document.getElementById('result').innerHTML = "";
+}
