@@ -1,5 +1,5 @@
 <h1 align="center">
-    <a href="https://ghenriquec.github.io/imc-calculator/"> Physical Calculator </a>
+    <a href="https://ghenriquec.github.io/challenge-TPA/"> Physical Calculator </a>
 </h1>
 
 <h3 align="center">
