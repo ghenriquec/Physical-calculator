@@ -48,6 +48,6 @@ const clearText = () => {
   document.getElementById('nameAthlete').value = "";
   document.getElementById('weightAthlete').value = "";
   document.getElementById('distanceTravelled').value = "";
-  document.getElementById('timeTravelled').innerHTML = "";
+  document.getElementById('timeTravelled').value = "";
   document.getElementById('result').innerHTML = "";
 }
